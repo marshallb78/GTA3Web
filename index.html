@@ -14,13 +14,10 @@
 	}
 	#canvas {
 		display: block;
-		width: 100vw !important;
-		height: 100vh !important;
-		max-width: 100vw !important;
-		max-height: 100vh !important;
+		width: 100%;
+		height: 100%;
 		outline: none;
 		touch-action: none;
-		image-rendering: auto;
 	}
 	#crashOverlay {
 		display: none;
@@ -113,7 +110,7 @@
 	<div id="loadingProgressWrap">
 		<div id="loadingProgressBar"></div>
 	</div>
-	<div id="loadingHint">Chromebook 720p Mode active. Assets are cached locally for smooth 60 FPS gameplay.</div>
+	<div id="loadingHint">Assets cached locally for fast load and smooth 60 FPS gameplay.</div>
 </div>
 <div id="crashOverlay">
 	<h1 id="crashTitle">The game has crashed</h1>
@@ -121,6 +118,11 @@
 	<pre id="crashDetail"></pre>
 </div>
 <script>
+	var canvas = document.getElementById('canvas');
+	if (canvas) {
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+	}
 	// Distinguishes "still loading" from "crashed" - without this, a slow asset
 	// preload and a silent crash looked identical to the user. Shown by default, hidden only
 	// once the game reaches "Initialise: end" (see updateLoadingStatus below and Game.cpp's
